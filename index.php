@@ -10,6 +10,14 @@ $app = new Slim();
 
 $app->config('debug', true);
 
+$app->get('/admin', function() {
+	
+	$page = new PageAdmin();
+
+	$page->setTpl("index");
+
+});
+
 $app->get('/', function() {
     
 	$page = new Page();
@@ -18,13 +26,6 @@ $app->get('/', function() {
 
 });
 
-$app->get('/admin', function() {
-    
-	$page = new PageAdmin();
-
-	$page->setTpl("index");
-
-});
 
 $app->run();
 

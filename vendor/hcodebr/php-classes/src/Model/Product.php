@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace Hcode\Model;
 
@@ -80,7 +80,13 @@ class Product extends Model {
 	{
 
 		if (file_exists(
-			$_SERVER['DOCUMENT_ROOT']."/res"."/site"."/img"."/products"."/".$this->getidproduct().".jpg")) {
+			$_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
+			"res" . DIRECTORY_SEPARATOR . 
+			"site" . DIRECTORY_SEPARATOR . 
+			"img" . DIRECTORY_SEPARATOR . 
+			"products" . DIRECTORY_SEPARATOR . 
+			$this->getidproduct() . ".jpg"
+			)) {
 
 			$url = "/res/site/img/products/" . $this->getidproduct() . ".jpg";
 
@@ -105,7 +111,8 @@ class Product extends Model {
 
 	}
 
-	public function setPhoto($file) {
+	public function setPhoto($file)
+	{
 
 		$extension = explode('.', $file['name']);
 		$extension = end($extension);
@@ -114,20 +121,25 @@ class Product extends Model {
 
 			case "jpg":
 			case "jpeg":
-				$image = imagecreatefromjpeg($file["tmp_name"]);
-				break;
+			$image = imagecreatefromjpeg($file["tmp_name"]);
+			break;
 
 			case "gif":
-				$image = imagecreatefromgif($file["tmp_name"]);
-				break;
+			$image = imagecreatefromgif($file["tmp_name"]);
+			break;
 
 			case "png":
-				$image = imagecreatefrompng($file["tmp_name"]);
-				break;
+			$image = imagecreatefrompng($file["tmp_name"]);
+			break;
 
 		}
 
-		$dist = $_SERVER['DOCUMENT_ROOT']."/res"."/site"."/img"."/products"."/".$this->getidproduct().".jpg";
+		$dist = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 
+			"res" . DIRECTORY_SEPARATOR . 
+			"site" . DIRECTORY_SEPARATOR . 
+			"img" . DIRECTORY_SEPARATOR . 
+			"products" . DIRECTORY_SEPARATOR . 
+			$this->getidproduct() . ".jpg";
 
 		imagejpeg($image, $dist);
 
@@ -156,7 +168,7 @@ class Product extends Model {
 		$sql = new Sql();
 
 		return $sql->select("
-			SELECT * FROM tb_categories a INNER JOIN tb_productscategories b ON a.idcategory = b.idcategory WHERE b.idproduct = :idproduct
+			SELECT * FROM tb_categories a INNER JOIN tb_categoriesproducts b ON a.idcategory = b.idcategory WHERE b.idproduct = :idproduct
 		", [
 
 			':idproduct'=>$this->getidproduct()
@@ -217,5 +229,4 @@ class Product extends Model {
 
 }
 
-
-?>
+ ?>
